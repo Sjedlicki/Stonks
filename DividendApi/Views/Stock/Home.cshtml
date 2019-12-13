@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Stock>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Enter Your Stock</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddStockToPortfolio" asp-controller="Stock">
+
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(m => m.Symbol)</label>
+                <input type="text" name="symbol" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(m => m.Shares)</label>
+                <input type="number" step="0.000001" name="shares" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>@Html.DisplayNameFor(m => m.Price)</label>
+                <input type="number" step="0.01" name="price" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Symbol</th>
+        <th>Company Name</th>
+        <th>Shares</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    @foreach (Stock stock in Model)
+    {
+        <tr>
+            <td>@stock.Symbol</td>
+            <td>@stock.CompanyName</td>
+            <td>@stock.Shares</td>
+            <td>@($"{stock.Price:C2}")</td>
+            <td>@($"{stock.Price * stock.Shares:C2}")</td>
+            <td>@Html.ActionLink("Update", "UpdateEntry", "Stock", stock)</td>
+            <td>@Html.ActionLink("Remove", "RemoveEntry", "Stock", stock)</td>
+        </tr>
+    }
+</table>

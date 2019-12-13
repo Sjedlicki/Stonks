@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Dividend Info";
+}
+
+<h1>Dividend Information</h1>
+
+@model List<Dividend>
+
+@foreach(Dividend stock in Model)
+{
+    @stock.Amount
+}
